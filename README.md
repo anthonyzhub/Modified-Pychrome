@@ -1,3 +1,11 @@
+Prerequistes:
+
+1. Pychromcast
+2. Python (of course)
+3. Google Home or Chromecast
+
+Message to all users:
+
 Hi,
 
 This public program is based on Pychromecast with additional functions for any kind of user. It does not matter if you are a beginner or expert programmer. Everyone is welcomed to use it!
