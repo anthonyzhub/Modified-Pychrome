@@ -5,7 +5,7 @@ def list_contents(contents):
     """ This function locates and prints directory. """
 
     # Specify directory
-    directory = '/Users/Movies/'
+    directory = '/Users/anthony/Movies/'
 
     # Counter for 'for-loop'
     x = 0

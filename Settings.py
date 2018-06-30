@@ -1,4 +1,5 @@
 import pychromecast
+import socket
 
 # Locate any Google Devices connected to network
 chromecasts = pychromecast.get_chromecasts()
@@ -49,7 +50,8 @@ mc = cast.media_controller
 def media_player(user_choice):
     """ This function will send media file to receiver. """
 
-    path_with_video = "http://127.0.0.1/{}".format(user_choice)
+    ip_address = socket.gethostbyname(socket.gethostname())
+    path_with_video = "{}:8000/{}".format(ip_address, user_choice)
     mc.play_media(path_with_video, content_type="video/mp3")
     mc.block_until_active()
     mc.play()
