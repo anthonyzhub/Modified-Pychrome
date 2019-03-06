@@ -61,9 +61,8 @@ class MediaPlayer:
     def addMediaFiles(self):
 
         """ Display all files that are playable in Chromecast """
-
         # Specify directory
-        user_directory = '/Users/anthonyzamora/Movies/'
+        user_directory = '/Users/anthony/Movies/'
 
         # Add playable files to list
         for file in os.listdir(user_directory):
@@ -112,6 +111,7 @@ class MediaPlayer:
     def remoteControlForDevice(self):
 
         """ Function serves as a remote control for video play """
+        
         control_actions = ['pause', 'play', 'stop', 'terminate']
 
         # Print list
