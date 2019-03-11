@@ -35,6 +35,5 @@ Anthony
 4. Execute `Main.py` in either Terminal or IDE
 5. Select Google device by either typing name or number associated with it
 6. Similar to previous step, but with media files
-7. The console will print out another message: `[pause, play, stop, terminate]`. These commands are similar to a remote of any T.V.
-  However, `terminate` will stop the program from running internally. Enter any command, it is an interactive console
+7. The console will print out another message: `[pause, play, stop, terminate]`. These commands are similar to a remote of any T.V. However, `terminate` will stop the program from running internally. Enter any command, it is an interactive console
 8. Sit back and relax!
