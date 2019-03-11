@@ -12,15 +12,15 @@ A Personal Modified Version of Pychromecast
 
 Hi All,
 
-This program is built upon Pychromecast with additional features for any kind of user. It does not matter if you are a beginner
-or expert programmer. Everyone is welcomed to use it! Pychromecast was created by ballooob, who is generous to share their 
-group's project to the Github community. It allows users to access and stream personal content to the user's Google devices. 
-Feel free to check out their work (Link: https://github.com/balloob/pychromecast). 
+This program is built upon Pychromecast with additional features for any kind of user. It does not matter if you are a beginner or expert programmer. Everyone is welcomed to use it! 
 
-My main goal is to give an easy access to
-all computer scientist enthusiat, no matter the skill level, who would love to watch their homemade videos on their chromecast.
+Pychromecast was created by ballooob, who is generous to share their group's project to the Github community. It allows users to access and stream personal content to the user's Google devices. Feel free to check out their work (Link: https://github.com/balloob/pychromecast). 
+
+My main goal is to give an easy access to all computer scientist enthusiat, no matter the skill level, who would love to watch their homemade videos on their chromecast.
+
 Modified-Pychrome allows you to stream any media files from your computer to either a Chromecast or a Home device. Controlling
-the media content is available through an interactive console. Only minimal modifications are required in the python files for all users.
+the media content is available through an interactive console. Only minimal modifications are required in the python files for all users. 
+
 Before running and compiling this program, please set your directory (the folder you want to stream from) in the python script.
 
 Have fun streaming,
