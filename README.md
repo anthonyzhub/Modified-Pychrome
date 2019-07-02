@@ -4,7 +4,7 @@ A Personal Modified Version of Pychromecast
 **Prerequisites**:
 
 1. Install `Pychromecast`
-2. Use Python 3.4 interpretor
+2. Use Python 3.4 interpreter
 3. Have either a Google Home or Google Chromecast (any model) connected to the same network as your computer
 4. Folder with media contents to stream
 
