@@ -20,7 +20,7 @@ class SystemSettings:
 
     def addDevicesToList(self):
 
-        """ Function retrieves all google devices in local network"""
+        """ Prints network devices"""
 
         counter = 1
 
@@ -35,7 +35,7 @@ class SystemSettings:
 
     def selectLocalDevice(self):
 
-        """ Function checks if input is in network """
+        """ Asks user for device selection and connects to it """
 
         # Keep in while loop until user selects correct device
         while True:
@@ -60,22 +60,19 @@ class SystemSettings:
 
             else:
 
+                # If a string is entered, check if it exists in list
+                # This simply checks if the name is spelled correctly
                 if device_selection in self.device_list:
                     break
 
-            # Print if loop hasn't ended
+            # Print if nothing was found
             print("Sorry, wrong number or name.")
 
-        # Return device
-        return device_selection
-
-    def connectToDevice(self, device_name):
-
-        """ Go through all elements in list, until 'friendly_name' and 'device_name" matches"""
-
+        # After locating the correct device, connect to it
         for device in self.google_devices:
 
-            if device_name == device.device.friendly_name:
+            if device_selection == device.device.friendly_name:
+
                 # Wait until casting device is activated
                 device.wait()
 

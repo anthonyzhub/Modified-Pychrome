@@ -8,16 +8,13 @@ def main():
     system_settings = System.SystemSettings()
 
     # Search device in network, then add to device_list
-    system_settings.appendLocalDevices()
+    system_settings.addDevicesToList()
 
     # Save user's device choice
-    device_name = system_settings.selectLocalDevice()
-
-    # Look for the device in google_devices and connect to it
-    cast_device = system_settings.connectToDevice(device_name)
+    device_chosen = system_settings.selectLocalDevice()
 
     # Create instance of MediaPlayer class to control what to play
-    media_player = Broadcast.MediaPlayer(cast_device)
+    media_player = Broadcast.MediaPlayer(device_chosen)
 
     # Add media files to list
     media_player.addMediaFiles()

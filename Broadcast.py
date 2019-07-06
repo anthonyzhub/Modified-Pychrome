@@ -1,6 +1,7 @@
 import os
 import socket
 import sys
+from pathlib import Path
 
 
 class MediaPlayer:
@@ -67,36 +68,34 @@ class MediaPlayer:
         # Play file
         self.cast_remote.play()
 
-    def printMediaList(self):
-
-        """ Print elements in media_list"""
-
-        counter = 1
-
-        for item in self.media_list:
-            print('{}. {}'.format(counter, item))
-
-            counter += 1
-
     def addMediaFiles(self):
 
-        """ Display all files that are playable in Chromecast """
+        """ Filter files in directory, then add them to list """
 
         # Specify directory
         user_directory = '/Users/anthonyzamora/Movies/'
 
-        # Add playable files to list
-        for file in os.listdir(user_directory):
+        counter = 1
 
-            # Don't add any files starting with '.'
-            if not file.startswith('.'):
-                self.media_list.append(file)
+        # Add playable files to list
+        for item in os.listdir(user_directory):
+
+            # Specifies item's path
+            file_path = Path(user_directory + str(item))
+
+            # Don't add hidden files or directories to list
+            if (not item.startswith('.')) and file_path.is_file():
+
+                # Add file to list
+                self.media_list.append(item)
+
+                # Print recently added file
+                print('{}. {}'.format(counter, self.media_list[counter - 1]))
+                counter += 1
 
     def chooseMediaFile(self):
 
         """ Allow user to pick a file """
-
-        self.printMediaList()
 
         self.lineBreaker()
 
@@ -156,17 +155,17 @@ class MediaPlayer:
 
             self.lineBreaker()
 
-            # Print list
+            # Prints available commands
             counter = 1
             for action in self.control_actions_dict.keys():
                 print('{}. {}'.format(counter, action))
                 counter += 1
 
-            # Request input and make string lowercase
-            action_selected = input("Select Command: ")
+            # Request input and makes string lowercase
+            action_selected = input("Enter Command: ")
             action_selected.lower()
 
-            # Check if input is a key in the dictionary
+            # Check if input is a key
             if action_selected in self.control_actions_dict.keys():
 
                 # Execute program
