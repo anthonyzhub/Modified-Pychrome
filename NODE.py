@@ -33,6 +33,58 @@ class DoubleLinkedList:
 
         self.list_size += 1
 
+    def removeFrontNode(self):
+
+        # Check if list is empty
+        if self.isEmpty():
+            print("NodeList is empty")
+            return None
+
+        # Check if there are more than 1 nodes
+        if self.head_node.next_node:
+
+            # Setup head_node and new one
+            curr_head = self.head_node
+            next_head = curr_head.next_node
+
+            # Empty curr_head
+            curr_head = None
+
+            # Setup new head_node
+            self.head_node = next_head
+
+        else:
+
+            # Execute if head_node is the only node
+            self.head_node = None
+
+        self.list_size -= 1
+
+    def removeRearNode(self):
+
+        # Check if list is empty
+        if self.isEmpty():
+            print("NodeList is empty")
+            return None
+
+        # Check if head_node is alone because it could also be a tail node
+        if self.head_node.next_node is None:
+            self.head_node = None
+
+        else:
+
+            # Create current node
+            curr_node = self.head_node
+
+            # Go last node
+            while curr_node.next_node:
+                curr_node = curr_node.next_node
+
+            # Remove link to previous node
+            curr_node.prev_node.next_node = None
+            curr_node = None
+
+
     def addNode(self, element):
 
         if self.isEmpty():
@@ -127,3 +179,11 @@ class DoubleLinkedList:
             # Move to next node
             curr_node = curr_node.next_node
 
+
+linklist = DoubleLinkedList()
+linklist.addNode(1)
+linklist.addNode(2)
+linklist.addNode(3)
+
+linklist.removeRearNode()
+linklist.printList()
