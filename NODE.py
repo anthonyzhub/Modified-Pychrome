@@ -17,7 +17,7 @@ class DoubleLinkedList:
         self.list_size = 0
 
     def isEmpty(self):
-        return self.list_size == 0
+        return self.list_size is 0
 
     def pushNode(self, element):
 
@@ -63,45 +63,57 @@ class DoubleLinkedList:
 
     def deleteNode(self, element):
 
+        # Check if list is empty
         if self.isEmpty():
             print("NodeList is empty")
+            return None
 
-        else:
+        # Check if head_node has the element
+        if self.head_node.element == element:
 
-            # Set current node
-            curr_node = self.head_node
+            # Check if head_node isn't the only node
+            if self.head_node.next_node:
 
-            # Go through link list
-            while curr_node.next_node is not None:
+                # Get head_node and its next_node
+                curr_head = self.head_node
+                next_head = curr_head.next_node
 
-                # Break if element matches node's
-                if curr_node.element == element:
-                    break
+                # Create links and delete curr_head
+                next_head.prev_node = None
+                next_head.next_node = None
+                curr_head = None
 
-                # Move to next node
-                curr_node = curr_node.next_node
+                # Set new head_node
+                self.head_node = next_head
 
-            # Check if next_node isn't empty
-            if curr_node.next_node is not None:
+            else:
+
+                # Execute if node is by itself
+                self.head_node = None
+
+            return None
+
+        # If node is at rear or other position
+        curr_node = self.head_node
+
+        # Continue while node is not empty
+        while curr_node:
+
+            if curr_node.element is element:
+                # Exchange links
                 curr_node.prev_node.next_node = curr_node.next_node
                 curr_node.next_node.prev_node = curr_node.prev_node
 
-            # Check if curr_node matches with element
-            elif curr_node.element == element:
-                curr_node.prev_node.next_node = None
+                # Delete node
+                curr_node = None
 
-            # Execute only if node isn't found
-            else:
-                print("Node was not found!")
+                # Exit function
+                return None
 
-                # Return nothing to exit function
-                return
+            curr_node = curr_node.next_node
 
-            # Delete node
-            print("Node Deleted: {}".format(curr_node.element))
-            del curr_node
-
-            self.list_size -= 1
+        # Executed ONLY if node doesn't exist
+        print("Node w/ {} was not found! ".format(element))
 
     def printList(self):
 
@@ -109,22 +121,9 @@ class DoubleLinkedList:
         curr_node = self.head_node
 
         while curr_node:
-
             # Print element
             print(curr_node.element)
 
             # Move to next node
             curr_node = curr_node.next_node
 
-
-linkList = DoubleLinkedList()
-linkList.addNode(1)
-linkList.addNode(11)
-linkList.addNode(111)
-linkList.addNode(1111)
-linkList.pushNode(0)
-print(linkList.isEmpty())
-
-#linkList.deleteNode(1)
-
-linkList.printList()
