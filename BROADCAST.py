@@ -1,6 +1,7 @@
 import os
 import socket
 import sys
+import NODE
 from pathlib import Path
 
 
@@ -12,6 +13,8 @@ class MediaPlayer:
 
         # List containing media files to cast
         self.media_list = []
+
+        self.nodeLinkedList = NODE.DoubleLinkedList()
 
         # Control device's actions
         self.cast_remote = cast_device_remote
@@ -64,12 +67,7 @@ class MediaPlayer:
 
     def addMediaFiles(self):
 
-        """ Filter files in directory, then add them to list """
-
-        # Specify directory
-        user_directory = '/Users/anthonyzamora/Movies/'
-
-        counter = 1
+        user_directory = "/Users/anthonyzamora/Movies/"
 
         # Add playable files to list
         for item in os.listdir(user_directory):
@@ -81,39 +79,53 @@ class MediaPlayer:
             if (not item.startswith('.')) and file_path.is_file():
 
                 # Add file to list
-                self.media_list.append(item)
+                self.nodeLinkedList.addNode(item)
 
-                # Print recently added file
-                print('{}. {}'.format(counter, self.media_list[counter - 1]))
-                counter += 1
+        # Print link list
+        self.nodeLinkedList.printList()
 
     def chooseMediaFile(self):
 
-        """ Allow user to pick a file """
-
         self.lineBreaker()
 
+        # Exit if linked list is empty
+        if self.nodeLinkedList.isEmpty():
+            print("NodeList is empty")
+            return None
+
+        # Create a temporary string variable to receive return value of getNodeElementBy*
+        temp_str = ""
+
+        # Keep loop running
         while True:
 
-            chosen_file = input('Pick a content to play: ')
+            # Ask for input
+            chosen_file = input("Pick content to play: ")
 
+            # If user entered digit, call getNodeByPosition()
             if chosen_file.isdigit():
 
-                # Get file from list
-                # Subtracting 1 because the output list starts at 1, instead of 0
-                temp = self.media_list[int(chosen_file) - 1]
-                chosen_file = temp
+                # Get file by position and make sure it isn't out of bound
+                temp_str = self.nodeLinkedList.getNodeElementByPosition(int(chosen_file) - 1)
 
-                break
+                # If None is not returned, then exit While loop
+                if temp_str:
+                    break
 
-            elif chosen_file in self.media_list:
+            elif not chosen_file.isdigit():
 
-                break
+                # Get file by element's name and make sure it exists
+                temp_str = self.nodeLinkedList.getNodeElementByName(chosen_file)
 
-            print('Sorry, wrong name or number')
+                if temp_str:
+                    break
 
-        # Send cast file on device
-        self.sendCastingFile(chosen_file)
+            else:
+                # Execute if user's input doesn't exist
+                print("{} does not exist".format(chosen_file))
+
+        # If loop breaks, send choice of media file
+        self.sendCastingFile(temp_str)
 
     def remoteControlForDevice(self):
 

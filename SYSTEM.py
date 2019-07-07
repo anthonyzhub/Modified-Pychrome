@@ -1,4 +1,5 @@
 import pychromecast
+import sys
 
 
 class SystemSettings:
@@ -17,6 +18,12 @@ class SystemSettings:
 
         """ Function simply adds a new line """
         print("")
+
+    def isDeviceFound(self):
+
+        if not self.google_devices:
+            print("No devices were found in network. Goodbye")
+            sys.exit()
 
     def addDevicesToList(self):
 

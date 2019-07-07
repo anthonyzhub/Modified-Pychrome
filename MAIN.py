@@ -7,6 +7,10 @@ def main():
     # Create instance for SystemSettings
     system_settings = SYSTEM.SystemSettings()
 
+    # Check if devices can be found in network
+    # If not, then terminate program immediately
+    system_settings.isDeviceFound()
+
     # Search device in network, then add to device_list
     system_settings.addDevicesToList()
 

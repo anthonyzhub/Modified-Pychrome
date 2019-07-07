@@ -17,7 +17,7 @@ class DoubleLinkedList:
         self.list_size = 0
 
     def isEmpty(self):
-        return self.list_size is 0
+        return self.list_size == 0
 
     def pushNode(self, element):
 
@@ -84,6 +84,7 @@ class DoubleLinkedList:
             curr_node.prev_node.next_node = None
             curr_node = None
 
+        self.list_size -= 1
 
     def addNode(self, element):
 
@@ -143,6 +144,8 @@ class DoubleLinkedList:
                 # Execute if node is by itself
                 self.head_node = None
 
+            self.list_size -= 1
+
             return None
 
         # If node is at rear or other position
@@ -159,6 +162,8 @@ class DoubleLinkedList:
                 # Delete node
                 curr_node = None
 
+                self.list_size -= 1
+
                 # Exit function
                 return None
 
@@ -167,23 +172,58 @@ class DoubleLinkedList:
         # Executed ONLY if node doesn't exist
         print("Node w/ {} was not found! ".format(element))
 
+    def getNodeElementByPosition(self, pos):
+
+        # Check if "pos" doesn't go out of bound
+        if (not pos <= self.list_size) and (not pos >= 0):
+            print("Position is out of bound")
+            return None
+
+        # Get current node
+        curr_node = self.head_node
+        curr_pos = 0
+
+        # Continue if node exists and curr_pos is less than intended pos
+        while curr_pos <= pos:
+
+            # If reached to desired position, return element
+            if curr_pos == pos:
+                return curr_node.element
+
+            # Else, continue
+            curr_node = curr_node.next_node
+            curr_pos += 1
+
+    def getNodeElementByName(self, element):
+
+        # Get current node
+        curr_node = self.head_node
+
+        # Go through list
+        while curr_node:
+
+            # Return node's content, if it matches
+            if curr_node.element == element:
+                return curr_node.element
+
+            # Continue to next node
+            curr_node = curr_node.next_node
+
+        # Execute if it wasn't found
+        print("{} was not found".format(element))
+
+        return None
+
     def printList(self):
 
         # Set current node
         curr_node = self.head_node
+        pos = 1
 
         while curr_node:
             # Print element
-            print(curr_node.element)
+            print("{}. {}".format(pos, curr_node.element))
 
             # Move to next node
             curr_node = curr_node.next_node
-
-
-linklist = DoubleLinkedList()
-linklist.addNode(1)
-linklist.addNode(2)
-linklist.addNode(3)
-
-linklist.removeRearNode()
-linklist.printList()
+            pos += 1
