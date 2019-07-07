@@ -13,8 +13,6 @@ class MediaPlayer:
         # List containing media files to cast
         self.media_list = []
 
-        self.currentFilePlaying = ''
-
         # Control device's actions
         self.cast_remote = cast_device_remote
 
@@ -24,7 +22,6 @@ class MediaPlayer:
             'stop': self.cast_remote.stop,
             'play': self.cast_remote.play,
             'restart video': self.cast_remote.rewind,
-            #'next video': self.nextMediaFile,
             'change video': self.chooseMediaFile,
             'terminate': self.terminateProgram,
             'enable subtitles': self.cast_remote.enable_subtitle,
@@ -52,15 +49,12 @@ class MediaPlayer:
         # Get ip address of this computer
         ip_address = socket.gethostbyname(socket.gethostname())
 
-        # Save name of file going to be played
-        self.currentFilePlaying = play_file
-
         # Path file to media content
-        file_path = 'http://{}:8000/{}'.format(ip_address, str(play_file.replace(" ", "%20")))
-        print('path_file: {}'.format(file_path))
+        url_file_path = 'http://{}:8000/{}'.format(ip_address, str(play_file.replace(" ", "%20")))
+        print('path_file: {}'.format(url_file_path))
 
         # Play media file
-        self.cast_remote.play_media(file_path, content_type='video/mp4')
+        self.cast_remote.play_media(url_file_path, content_type='video/mp4')
 
         # Block access to device until media file ends
         self.cast_remote.block_until_active()
@@ -101,7 +95,7 @@ class MediaPlayer:
 
         while True:
 
-            chosen_file = input('Pick a content to play ')
+            chosen_file = input('Pick a content to play: ')
 
             if chosen_file.isdigit():
 
@@ -120,31 +114,6 @@ class MediaPlayer:
 
         # Send cast file on device
         self.sendCastingFile(chosen_file)
-
-    def nextMediaFile(self):
-
-        """ Play next file on list, if user enters command  """
-
-        # Check if file playing is the last element in list
-        if self.currentFilePlaying == self.media_list[-1]:
-
-            return "Sorry, you reached the end of the playlist. "
-        else:
-
-            # Locate position of current file being played
-            counter = 0
-
-            # Continue until reaching the end of the list
-            for item in self.media_list:
-
-                if item == self.currentFilePlaying:
-
-                    # Send next file in list
-                    self.sendCastingFile(self.media_list[counter + 1])
-
-                # Increment counter
-                counter += 1
-
 
     def remoteControlForDevice(self):
 
@@ -173,4 +142,3 @@ class MediaPlayer:
 
             else:
                 print("Sorry, invalid command. ")
-

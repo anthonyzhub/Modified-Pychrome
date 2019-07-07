@@ -78,4 +78,3 @@ class SystemSettings:
 
                 # Return media controller
                 return device.media_controller
-
