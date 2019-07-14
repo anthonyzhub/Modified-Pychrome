@@ -51,7 +51,7 @@ class SystemSettings:
             self.lineBreaker()
 
             # Ask user for selection
-            device_selection = input("Select device from list above: ")
+            device_selection = input("Select a device: ")
 
             if device_selection.isdigit():
 

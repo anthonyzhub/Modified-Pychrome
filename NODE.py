@@ -222,7 +222,7 @@ class DoubleLinkedList:
 
         while curr_node:
             # Print element
-            print("{}. {}".format(pos, curr_node.element))
+            print("{} - {}".format(pos, curr_node.element))
 
             # Move to next node
             curr_node = curr_node.next_node
