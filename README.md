@@ -29,6 +29,6 @@ Anthony
 3. Execute `Main.py` in either Terminal or IDE
 4. If this is the first time `Modified Pychromecast` is running in your computer, enter directory of folder that has all the media files that you would like to cast. This is case sensitive!
 5. Select a Google device by either typing device's name or number associated with it
-6. Similar to previous step, but involves in selecting a media file through an interactive console
+6. Similar to previous step, but involves in selecting a media file or entering a URL link through an interactive console
 7. The console will print out a list of commands, similar to T.V. remote. However, `terminate` will stop the program from running internally.
 8. Sit back and relax!
