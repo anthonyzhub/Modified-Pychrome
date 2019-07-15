@@ -67,22 +67,39 @@ class MediaPlayer:
 
     def addMediaFiles(self):
 
-        user_directory = "/Users/anthonyzamora/Movies/"
+        # Merge current working directory with file name
+        settings_text_path = os.path.join(os.getcwd(), "SETTINGS.txt")
 
-        # Add playable files to list
-        for item in os.listdir(user_directory):
+        # If file exists, then open it
+        if os.path.exists(settings_text_path):
+            with open("SETTINGS.txt", "r") as settings_file:
 
-            # Specifies item's path
-            file_path = Path(user_directory + str(item))
+                # Read text file
+                data = settings_file.readlines()
 
-            # Don't add hidden files or directories to list
-            if (not item.startswith('.')) and file_path.is_file():
+                # Return 1st line of text and remove "media_directory = "
+                get_path = data[0]
+                media_directory_path = get_path.split("media_directory= ")[1]
 
-                # Add file to list
-                self.nodeLinkedList.addNode(item)
+                # Add playable files to list
+                for item in os.listdir(media_directory_path):
 
-        # Print link list
-        self.nodeLinkedList.printList()
+                    # Specifies item's path
+                    file_path = Path(media_directory_path + str(item))
+
+                    # Don't add hidden files or directories to list
+                    if (not item.startswith('.')) and file_path.is_file():
+
+                        # Add file to list
+                        self.nodeLinkedList.addNode(item)
+
+                # Print link list
+                self.nodeLinkedList.printList()
+
+        else:
+
+            # Print if path doesn't exist
+            print("{} does not exist".format(settings_text_path))
 
     def chooseMediaFile(self):
 

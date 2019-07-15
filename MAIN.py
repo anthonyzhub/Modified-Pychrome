@@ -11,6 +11,9 @@ def main():
     # If not, then terminate program immediately
     system_settings.isDeviceFound()
 
+    # Check if SETTINGS.txt exists
+    system_settings.isSettingsFileFound()
+
     # Search device in network, then add to device_list
     system_settings.addDevicesToList()
 

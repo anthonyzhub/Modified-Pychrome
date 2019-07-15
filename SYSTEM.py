@@ -1,5 +1,6 @@
 import pychromecast
 import sys
+import os
 
 
 class SystemSettings:
@@ -21,9 +22,41 @@ class SystemSettings:
 
     def isDeviceFound(self):
 
+        """ Exit program if no casting devices were found"""
+
         if not self.google_devices:
             print("No devices were found in network. Goodbye")
             sys.exit()
+
+    def isSettingsFileFound(self):
+
+        # Get current working directory and merge it with file name
+        settings_path = os.path.join(os.getcwd(), "SETTINGS.txt")
+
+        # Check if file exists in current directory
+        if not (os.path.exists(settings_path)):
+            print("SETTINGS.txt does not exist")
+
+            # Ask user which folder has media files to cast
+            while True:
+
+                print("Enter path of folder with media files to cast. It is CASE SENSITIVE. ")
+                media_directory = input("Case Sensitive Path: ")
+
+                # If it doesn't end with "/", program will look for another file
+                if media_directory[-1] is not "/":
+                    media_directory = media_directory + "/"
+
+                if os.path.exists(media_directory):
+
+                    # Create SETTINGS.txt and store user's media directory
+                    file_to_create = open("SETTINGS.txt", "w+")
+                    file_to_create.write("media_directory= " + media_directory)
+                    file_to_create.close()
+
+                    break
+                else:
+                    print("Sorry, directory doesn't exist. Try again")
 
     def addDevicesToList(self):
 
