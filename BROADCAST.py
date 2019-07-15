@@ -45,16 +45,20 @@ class MediaPlayer:
         print("Goodbye, World...")
         sys.exit()
 
-    def sendCastingFile(self, play_file):
+    def sendFileToCast(self, play_file, online_video_link=False):
 
         """ Sends media file to casting device """
 
         # Get ip address of this computer
         ip_address = socket.gethostbyname(socket.gethostname())
 
-        # Path file to media content
-        url_file_path = 'http://{}:8000/{}'.format(ip_address, str(play_file.replace(" ", "%20")))
-        print('path_file: {}'.format(url_file_path))
+        if not online_video_link:
+            # Path file to media content
+            url_file_path = 'http://{}:8000/{}'.format(ip_address, str(play_file.replace(" ", "%20")))
+            print('path_file: {}'.format(url_file_path))
+
+        else:
+            url_file_path = play_file
 
         # Play media file
         self.cast_remote.play_media(url_file_path, content_type='video/mp4')
@@ -107,42 +111,45 @@ class MediaPlayer:
 
         # Exit if linked list is empty
         if self.nodeLinkedList.isEmpty():
-            print("NodeList is empty")
-            return None
+            alternative_choice = input("Media folder is empty. Would you like to stream an online video? Y/n")
 
-        # Create a temporary string variable to receive return value of getNodeElementBy*
-        temp_str = ""
+            if alternative_choice == "Y" or alternative_choice == "y":
+                video_link = input("Enter URL link: ")
+                self.sendFileToCast(video_link, online_video_link=True)
+
+            else:
+                return None
 
         # Keep loop running
         while True:
 
             # Ask for input
-            chosen_file = input("Pick content to play: ")
+            chosen_file = input("File/URL to Play: ")
+
+            if chosen_file.startswith("http"):
+                temp_str = chosen_file
 
             # If user entered digit, call getNodeByPosition()
-            if chosen_file.isdigit():
-
+            elif chosen_file.isdigit():
                 # Get file by position and make sure it isn't out of bound
                 temp_str = self.nodeLinkedList.getNodeElementByPosition(int(chosen_file) - 1)
 
-                # If None is not returned, then exit While loop
-                if temp_str:
-                    break
-
             elif not chosen_file.isdigit():
-
                 # Get file by element's name and make sure it exists
                 temp_str = self.nodeLinkedList.getNodeElementByName(chosen_file)
-
-                if temp_str:
-                    break
 
             else:
                 # Execute if user's input doesn't exist
                 print("{} does not exist".format(chosen_file))
 
+            if temp_str:
+                break
+
         # If loop breaks, send choice of media file
-        self.sendCastingFile(temp_str)
+        if temp_str.startswith("http"):
+            self.sendFileToCast(temp_str, online_video_link=True)
+        else:
+            self.sendFileToCast(temp_str)
 
     def remoteControlForDevice(self):
 

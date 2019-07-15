@@ -6,7 +6,7 @@ A Modified Version of Pychromecast
 1. Install `Pychromecast`
 2. Use Python 3.4 interpreter
 3. Have either a Google Home or Google Chromecast (any model) connected to the same network as your computer
-4. Folder with media contents to stream
+4. Folder with media contents to cast
 
 **Friendly Message**:
 
@@ -26,9 +26,9 @@ Anthony
 
 1. Open `Terminal` and navigate to your media folder
 2. Type and enter `python3 -m http.server` to start server
-3. Open `Broadcast.py` and specify directory of the folder from Step 1 in `addMediaFiles()`. Save changes!
-4. Execute `Main.py` in either Terminal or IDE
+3. Execute `Main.py` in either Terminal or IDE
+4. If this is the first time `Modified Pychromecast` is running in your computer, enter directory of folder that has all the media files that you would like to cast. This is case sensitive!
 5. Select a Google device by either typing device's name or number associated with it
 6. Similar to previous step, but involves in selecting a media file through an interactive console
-7. The console will print out another message: `[pause, play, stop, terminate]`. These commands are similar to a remote of any T.V. However, `terminate` will stop the program from running internally. Enter any command, it is an interactive console
+7. The console will print out a list of commands, similar to T.V. remote. However, `terminate` will stop the program from running internally.
 8. Sit back and relax!
