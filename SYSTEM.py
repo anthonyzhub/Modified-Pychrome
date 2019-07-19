@@ -9,7 +9,7 @@ class SystemSettings:
 
         """ Initializing this class requires the implementation of device_list and google_devices """
 
-        self.device_map = {}
+        self.device_dict = {}
 
         # Scan network for google devices
         self.google_devices = pychromecast.get_chromecasts()
@@ -63,13 +63,13 @@ class SystemSettings:
                 else:
                     print("Sorry, directory doesn't exist. Try again")
 
-    def addDevicesToList(self):
+    def addDevicesToDictionary(self):
 
         # Iterate google_devices list
         for local_network_device in self.google_devices:
 
             # Add friendly_name as key, and all information as value to dictionary
-            self.device_map[local_network_device.device.friendly_name] = local_network_device
+            self.device_dict[local_network_device.device.friendly_name] = local_network_device
 
     def selectLocalDevice(self):
 
@@ -78,9 +78,9 @@ class SystemSettings:
 
         # Print dictionary
         counter = 1
-        for key in sorted(self.device_map.keys()):
+        for key in sorted(self.device_dict.keys()):
             print("{} - {}".format(counter, key))
-            temp_device_list.append(self.device_map[key])
+            temp_device_list.append(self.device_dict[key])
             counter += 1
 
         while True:
@@ -88,13 +88,13 @@ class SystemSettings:
             device_selected = input("Select a device: ")
 
             # Check if device exist by checking if it is a key
-            if device_selected in self.device_map.keys():
+            if device_selected in self.device_dict.keys():
 
                 # Wait for device to respond
-                self.device_map[device_selected].wait()
+                self.device_dict[device_selected].wait()
 
                 # Return device's controls
-                return self.device_map[device_selected].media_controller
+                return self.device_dict[device_selected].media_controller
 
             # Check if input is a digit and length is less than temp_device_list
             elif device_selected.isdigit() and (int(device_selected) - 1) <= len(temp_device_list):

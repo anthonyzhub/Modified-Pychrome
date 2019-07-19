@@ -15,7 +15,7 @@ def main():
     system_settings.isSettingsFileFound()
 
     # Search device in network, then add to device_list
-    system_settings.addDevicesToList()
+    system_settings.addDevicesToDictionary()
 
     # Save user's device choice
     device_chosen = system_settings.selectLocalDevice()

@@ -175,7 +175,7 @@ class DoubleLinkedList:
     def getNodeElementByPosition(self, pos):
 
         # Check if "pos" doesn't go out of bound
-        if (not pos <= self.list_size) and (not pos >= 0):
+        if (pos >= self.list_size) or (pos < 0):
             print("Position is out of bound")
             return None
 

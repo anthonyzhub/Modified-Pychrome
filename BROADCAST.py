@@ -129,6 +129,7 @@ class MediaPlayer:
             chosen_file = input("File/URL to Play: ")
 
             input_is_url = False
+            file_exists = False
 
             # Check if input is a URL link
             if chosen_file.startswith("http"):
@@ -138,23 +139,25 @@ class MediaPlayer:
             # If user entered digit, call getNodeByPosition()
             elif chosen_file.isdigit():
                 # Get file by position and make sure it isn't out of bound
-                temp_str = self.nodeLinkedList.getNodeElementByPosition(int(chosen_file) - 1)
-                break
+                if self.nodeLinkedList.getNodeElementByPosition(int(chosen_file) - 1):
+                    file_exists = True
+                    break
 
             elif not chosen_file.isdigit():
                 # Get file by element's name and make sure it exists
-                temp_str = self.nodeLinkedList.getNodeElementByName(chosen_file)
-                break
+                if self.nodeLinkedList.getNodeElementByName(chosen_file):
+                    file_exists = True
+                    break
 
             else:
                 # Execute if user's input doesn't exist
                 print("{} does not exist".format(chosen_file))
 
-        # If loop breaks, send choice of media file
+        # If loop breaks, set proper parameters
         if input_is_url:
             self.sendFileToCast(chosen_file, online_video_link=True)
-        else:
-            self.sendFileToCast(temp_str)
+        elif file_exists:
+            self.sendFileToCast(chosen_file)
 
     def remoteControlForDevice(self):
 
