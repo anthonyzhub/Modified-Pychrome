@@ -9,7 +9,7 @@ class SystemSettings:
 
         """ Initializing this class requires the implementation of device_list and google_devices """
 
-        self.device_list = []
+        self.device_map = {}
 
         # Scan network for google devices
         self.google_devices = pychromecast.get_chromecasts()
@@ -19,6 +19,11 @@ class SystemSettings:
 
         """ Function simply adds a new line """
         print("")
+
+    def printDictionary(self, dict_1):
+
+        for key, value in dict_1.items():
+            print("{} - {}".format(key, value))
 
     def isDeviceFound(self):
 
@@ -60,61 +65,42 @@ class SystemSettings:
 
     def addDevicesToList(self):
 
-        """ Prints network devices"""
+        # Iterate google_devices list
+        for local_network_device in self.google_devices:
 
-        counter = 1
-
-        for device in self.google_devices:
-
-            # Adds devices' name to list
-            self.device_list.append(device.device.friendly_name)
-
-            # Prints list
-            print('{} - {}'.format(counter, self.device_list[counter - 1]))
-            counter += 1
+            # Add friendly_name as key, and all information as value to dictionary
+            self.device_map[local_network_device.device.friendly_name] = local_network_device
 
     def selectLocalDevice(self):
 
-        """ Asks user for device selection and connects to it """
+        # Create list that will hold all devices' information
+        temp_device_list = []
 
-        # Keep in while loop until user selects correct device
+        # Print dictionary
+        counter = 1
+        for key in self.device_map.keys():
+            print("{} - {}".format(counter, key))
+            temp_device_list.append(self.device_map[key])
+            counter += 1
+
         while True:
 
-            # Adds an empty line in terminal
-            self.lineBreaker()
+            device_selected = input("Select a device: ")
 
-            # Ask user for selection
-            device_selection = input("Select a device: ")
+            # Check if device exist by checking if it is a key
+            if device_selected in self.device_map.keys():
 
-            if device_selection.isdigit():
+                # Wait for device to respond
+                self.device_map[device_selected].wait()
 
-                # Create temp variable to hold value
-                # Subtracting 1 because the output list starts at 1, instead of 0
-                temp = self.device_list[int(device_selection) - 1]
+                # Return device's controls
+                return self.device_map[device_selected].media_controller
 
-                # Copy and past value to device_selection
-                device_selection = temp
+            # Check if input is a digit and length is less than temp_device_list
+            elif device_selected.isdigit() and (int(device_selected) - 1) <= len(temp_device_list):
+                temp_device_list[int(device_selected) - 1].wait()
 
-                # exit loop
-                break
+                return temp_device_list[int(device_selected) - 1].media_controller
 
             else:
-
-                # If a string is entered, check if it exists in list
-                # This simply checks if the name is spelled correctly
-                if device_selection in self.device_list:
-                    break
-
-            # Print if nothing was found
-            print("Sorry, wrong number or name.")
-
-        # After locating the correct device, connect to it
-        for device in self.google_devices:
-
-            if device_selection == device.device.friendly_name:
-
-                # Wait until casting device is activated
-                device.wait()
-
-                # Return media controller
-                return device.media_controller
+                print("Device not found")

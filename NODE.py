@@ -214,7 +214,7 @@ class DoubleLinkedList:
 
         return None
 
-    def printList(self):
+    def printLinkedList(self):
 
         # Set current node
         curr_node = self.head_node

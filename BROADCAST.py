@@ -11,9 +11,7 @@ class MediaPlayer:
 
         """ Initializing this class requires the implementation of cast_device_remote """
 
-        # List containing media files to cast
-        self.media_list = []
-
+        # Linked list containing media files to castz
         self.nodeLinkedList = NODE.DoubleLinkedList()
 
         # Control device's actions
@@ -42,7 +40,11 @@ class MediaPlayer:
         """ Terminate, or Quit, program from running """
         self.lineBreaker()
 
+        # Stop file from playing
+        self.cast_remote.stop()
         print("Goodbye, World...")
+
+        # Terminate program
         sys.exit()
 
     def sendFileToCast(self, play_file, online_video_link=False):
@@ -98,7 +100,7 @@ class MediaPlayer:
                         self.nodeLinkedList.addNode(item)
 
                 # Print link list
-                self.nodeLinkedList.printList()
+                self.nodeLinkedList.printLinkedList()
 
         else:
 
@@ -126,6 +128,7 @@ class MediaPlayer:
             # Ask for input
             chosen_file = input("File/URL to Play: ")
 
+            # Check if input is a URL link
             if chosen_file.startswith("http"):
                 temp_str = chosen_file
 
