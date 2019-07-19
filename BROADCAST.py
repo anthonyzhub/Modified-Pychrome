@@ -128,29 +128,31 @@ class MediaPlayer:
             # Ask for input
             chosen_file = input("File/URL to Play: ")
 
+            input_is_url = False
+
             # Check if input is a URL link
             if chosen_file.startswith("http"):
-                temp_str = chosen_file
+                input_is_url = True
+                break
 
             # If user entered digit, call getNodeByPosition()
             elif chosen_file.isdigit():
                 # Get file by position and make sure it isn't out of bound
                 temp_str = self.nodeLinkedList.getNodeElementByPosition(int(chosen_file) - 1)
+                break
 
             elif not chosen_file.isdigit():
                 # Get file by element's name and make sure it exists
                 temp_str = self.nodeLinkedList.getNodeElementByName(chosen_file)
+                break
 
             else:
                 # Execute if user's input doesn't exist
                 print("{} does not exist".format(chosen_file))
 
-            if temp_str:
-                break
-
         # If loop breaks, send choice of media file
-        if temp_str.startswith("http"):
-            self.sendFileToCast(temp_str, online_video_link=True)
+        if input_is_url:
+            self.sendFileToCast(chosen_file, online_video_link=True)
         else:
             self.sendFileToCast(temp_str)
 

@@ -45,7 +45,7 @@ class SystemSettings:
             # Ask user which folder has media files to cast
             while True:
 
-                print("Enter path of folder with media files to cast. It is CASE SENSITIVE. ")
+                print("Enter path of folder with media files to cast. It is CASE SENSITIVE! ")
                 media_directory = input("Case Sensitive Path: ")
 
                 # If it doesn't end with "/", program will look for another file
@@ -78,7 +78,7 @@ class SystemSettings:
 
         # Print dictionary
         counter = 1
-        for key in self.device_map.keys():
+        for key in sorted(self.device_map.keys()):
             print("{} - {}".format(counter, key))
             temp_device_list.append(self.device_map[key])
             counter += 1
